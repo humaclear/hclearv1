@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diagnóstico · HumaClear</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Estilos mínimos por si css/styles.css no se publicó */
+    body { background: #040506; color: #9c9c9d; font: 15px/1.6 system-ui, sans-serif; }
+    .diag { max-width: 760px; margin: 0 auto; padding: 48px 16px; }
+    .diag h1 { color: #fff; font-weight: 400; font-size: 32px; margin: 0 0 8px; }
+    .diag table { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 14px; }
+    .diag td, .diag th { text-align: left; padding: 10px 12px; border-bottom: 1px solid #363739; }
+    .diag th { font-size: 12px; text-transform: uppercase; letter-spacing: .8px; color: #9c9c9d; font-weight: 500; }
+    .diag td:first-child { font-family: ui-monospace, monospace; color: #fff; overflow-wrap: anywhere; }
+    .ok { color: #25b9a7; font-weight: 600; }
+    .bad { color: #ff9b9b; font-weight: 600; }
+    .opt { color: #9c9c9d; }
+    .box { margin-top: 24px; padding: 14px 16px; border: 1px solid #363739; border-radius: 12px; background: #07080a; color: #fff; }
+  </style>
+</head>
+<body>
+  <main class="diag">
+    <h1>Diagnóstico del sitio</h1>
+    <p>Revisa que todos los archivos estén publicados en la raíz del repositorio y que <code>js/config.js</code> sea válido.</p>
+    <div class="box" id="summary" aria-live="polite">Revisando…</div>
+    <div class="box" id="config">Revisando js/config.js…</div>
+    <table>
+      <thead><tr><th scope="col">Archivo</th><th scope="col">Estado</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </main>
+  <script type="module">
+    const required = [
+      "index.html", "portal.html", "admin.html", "privacidad.html",
+      "css/styles.css", "css/app.css", "assets/favicon.svg",
+      "js/config.js", "js/catalog.js", "js/chart.js", "js/site.js", "js/portal.js", "js/admin.js",
+      "js/auth-ui.js", "js/backend.js", "js/backend-firebase.js", "js/backend-demo.js",
+    ];
+    const optional = ["assets/humaclear.mp4", "assets/humaclear.webm", "assets/humaclear-poster.jpg"];
+    const rows = document.getElementById("rows");
+    let missing = 0;
+    async function check(path, isOptional) {
+      const tr = document.createElement("tr");
+      const name = document.createElement("td"); name.textContent = path;
+      const st = document.createElement("td"); st.textContent = "…";
+      tr.append(name, st); rows.append(tr);
+      try {
+        const res = await fetch(path, { cache: "no-store", method: isOptional ? "HEAD" : "GET" });
+        if (res.ok) { st.textContent = "OK"; st.className = "ok"; }
+        else throw new Error(res.status);
+      } catch {
+        if (isOptional) { st.textContent = "No está (opcional)"; st.className = "opt"; }
+        else { st.textContent = "FALTA"; st.className = "bad"; missing++; }
+      }
+    }
+    await Promise.all([...required.map((p) => check(p, false)), ...optional.map((p) => check(p, true))]);
+    document.getElementById("summary").innerHTML = missing
+      ? `<span class="bad">Faltan ${missing} archivo(s).</span> Súbelos a GitHub en la misma ruta y vuelve a desplegar.`
+      : `<span class="ok">Todos los archivos requeridos están publicados.</span>`;
+
+    const cfgBox = document.getElementById("config");
+    try {
+      const cfg = await import("./js/config.js");
+      const c = cfg.firebaseConfig || {};
+      cfgBox.innerHTML = cfg.isDemo
+        ? `<span class="ok">config.js es válido.</span> Modo: <strong>demo</strong> (apiKey vacío; los datos se guardan solo en el navegador).`
+        : `<span class="ok">config.js es válido.</span> Modo: <strong>Firebase</strong> · proyecto <code></code>`;
+      const code = cfgBox.querySelector("code");
+      if (code) code.textContent = c.projectId || "(sin projectId)";
+      if (!cfg.isDemo && (!c.projectId || !c.authDomain || !c.appId)) {
+        cfgBox.insertAdjacentHTML("beforeend", `<br><span class="bad">Faltan campos en firebaseConfig (projectId, authDomain o appId).</span>`);
+      }
+    } catch (err) {
+      cfgBox.innerHTML = `<span class="bad">js/config.js tiene un error:</span> <code></code><br>Revisa comillas y comas.`;
+      cfgBox.querySelector("code").textContent = err.message;
+    }
+  </script>
+</body>
+</html>

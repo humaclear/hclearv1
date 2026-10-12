@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function profile()  { return get(/databases/$(database)/documents/users/$(request.auth.uid)).data; }
+    function isAdmin()  { return signedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid)) && profile().role == 'admin'; }
+    function isActiveClient() { return signedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid)) && profile().active == true; }
+    function str(v, max) { return v is string && v.size() <= max; }
+
+    match /users/{uid} {
+      allow get: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow list: if isAdmin();
+      allow write: if isAdmin();   // nadie puede darse permisos de admin
+    }
+    match /contracts/{id} {
+      allow read: if isAdmin() || (isActiveClient() && resource.data.uid == request.auth.uid);
+      allow write: if isAdmin();
+    }
+    match /documents/{id} {
+      allow read: if isAdmin() || (isActiveClient() && resource.data.uid == request.auth.uid);
+      allow write: if isAdmin();
+    }
+    match /requests/{id} {
+      allow read: if isAdmin() || (isActiveClient() && resource.data.uid == request.auth.uid);
+      allow create: if isActiveClient()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == 'abierta'
+        && request.resource.data.kind in ['soporte', 'nuevo_servicio']
+        && str(request.resource.data.subject, 120)
+        && str(request.resource.data.message, 2000);
+      allow update, delete: if isAdmin();
+    }
+    match /leads/{id} {
+      allow create: if request.resource.data.keys().hasOnly(
+          ['name','company','email','phone','size','packageId','interests','message','consent','status','createdAt'])
+        && str(request.resource.data.name, 120)
+        && str(request.resource.data.company, 160)
+        && str(request.resource.data.email, 160)
+        && str(request.resource.data.phone, 40)
+        && str(request.resource.data.message, 2000)
+        && request.resource.data.consent == true
+        && request.resource.data.status == 'nuevo';
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}

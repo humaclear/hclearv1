@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HumaClear · Digitalización de Recursos Humanos para PyMEs</title>
+  <meta name="description" content="HumaClear digitaliza y automatiza los procesos de Recursos Humanos de tu PyME: entrevistas de salida, clima laboral, buzón de opinión y seguimiento 30-60-90, con tableros y portal incluido.">
+  <meta name="theme-color" content="#040506">
+  <meta property="og:title" content="HumaClear · Del caos a la claridad.">
+  <meta property="og:description" content="Digitalización y automatización de Recursos Humanos para PyMEs en México.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- Watchdog: si algo impide que el sitio arranque, muestra un aviso claro en vez de una página a medias. -->
+  <script>
+  (function () {
+    var errs = [];
+    function rec(e) {
+      var t = e && e.target, msg = "";
+      if (t && t !== window && (t.tagName === "SCRIPT" || t.tagName === "LINK")) msg = "No se pudo cargar " + (t.src || t.href);
+      else if (e && e.reason) msg = String(e.reason && e.reason.message || e.reason);
+      else if (e && e.message) msg = e.message + (e.filename ? " (" + e.filename.split("/").pop() + ":" + e.lineno + ")" : "");
+      if (msg) errs.push(msg);
+    }
+    window.addEventListener("error", rec, true);
+    window.addEventListener("unhandledrejection", rec);
+    setTimeout(function () {
+      if (document.documentElement.getAttribute("data-ready")) return;
+      var d = document.createElement("div");
+      d.setAttribute("role", "alert");
+      d.style.cssText = "position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:720px;margin:0 auto;padding:16px 18px;background:#1a0e0e;color:#ffd9d9;border:1px solid #5a2f2f;border-radius:12px;font:14px/1.5 system-ui,sans-serif";
+      var b = document.createElement("strong"); b.textContent = "El sitio no terminó de cargar. ";
+      var p = document.createElement("div"); p.textContent = errs[0] || "Algún archivo no se cargó.";
+      p.style.cssText = "font-family:ui-monospace,monospace;font-size:12px;margin:6px 0;word-break:break-word";
+      var h = document.createElement("div");
+      h.textContent = "Revisa que js/config.js tenga comillas y comas correctas y que index.html, css/ y js/ estén en la raíz del repositorio.";
+      d.appendChild(b); d.appendChild(p); d.appendChild(h);
+      document.body.appendChild(d);
+    }, 3500);
+  })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"></noscript>
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="js/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#inicio" aria-label="HumaClear, inicio"><span class="brand-mark" aria-hidden="true">hc</span><span class="brand-name">Huma<b>Clear</b></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menú">
+        <svg class="i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <nav class="nav-menu" id="nav-menu" aria-label="Principal">
+        <ul class="nav-links">
+          <li><a href="#soluciones">Soluciones</a></li>
+          <li><a href="#proceso">Proceso</a></li>
+          <li><a href="#ia">IA</a></li>
+          <li><a href="#paquetes">Paquetes</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a class="portal-link" href="portal.html">Portal de clientes</a>
+          <a class="btn btn-primary" href="#contacto">Cotizar</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <!-- Hero -->
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-fade" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <span class="badge">Recursos Humanos digital para PyMEs</span>
+        <h1 id="hero-title">Del caos a la claridad<span class="dot">.</span></h1>
+        <p class="hero-sub">Convertimos las carpetas, hojas de cálculo y correos de tu área de RH en sistemas simples, con tableros que te dicen qué está pasando. La IA analiza. Tú decides.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="#contacto">Cotizar mi proyecto</a>
+          <a class="btn btn-ghost btn-lg" href="#portal">Ver el portal</a>
+        </div>
+        <p class="meta">PyMEs · México · Portal incluido</p>
+      </div>
+    </section>
+
+    <!-- Video (se muestra solo si el archivo existe) -->
+    <section class="section" id="video" aria-labelledby="video-title" hidden style="padding-top:24px">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Video</p>
+          <h2 class="section-title" id="video-title">Míralo en acción.</h2>
+        </div>
+        <div class="video-frame">
+          <video controls playsinline preload="metadata" poster="assets/humaclear-poster.jpg" aria-label="Video de presentación de HumaClear">
+            <source src="assets/humaclear.webm" type="video/webm">
+            <source src="assets/humaclear.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- Antes / después -->
+    <section class="section" id="antes-despues" aria-labelledby="ba-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Antes y después</p>
+          <h2 class="section-title" id="ba-title">Tu información de RH, en un solo lugar.</h2>
+          <p class="lead">Hoy los datos de tu gente viven en diez lugares distintos. Con HumaClear viven en uno, ordenados y listos para decidir.</p>
+        </div>
+        <div class="ba">
+          <article class="card ba-card">
+            <p class="eyebrow">Antes</p>
+            <h3>Carpetas, versiones y correos</h3>
+            <ul class="chaos" id="chaos-list"></ul>
+          </article>
+          <article class="card card-key ba-card">
+            <p class="eyebrow">Con HumaClear</p>
+            <h3>Un sistema claro, al día</h3>
+            <ul class="clarity">
+              <li>Entrevistas de salida <span class="meta">48 respuestas</span></li>
+              <li>Clima laboral · 3.9 / 5 <span class="meta">86% participó</span></li>
+              <li>Buzón de opinión <span class="meta">89% atendido</span></li>
+              <li>Seguimiento 30-60-90 <span class="meta">12 personas</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Soluciones -->
+    <section class="section" id="soluciones" aria-labelledby="sol-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Soluciones</p>
+          <h2 class="section-title" id="sol-title">Cuatro sistemas para los procesos que más pesan.</h2>
+          <p class="lead">Cada uno incluye el formulario que responde tu gente y el tablero que lees tú. Pruébalos aquí mismo.</p>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Servicios" id="svc-tabs"></div>
+        <div id="svc-panels"></div>
+      </div>
+    </section>
+
+    <!-- Proceso -->
+    <section class="section" id="proceso" aria-labelledby="proc-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Proceso</p>
+          <h2 class="section-title" id="proc-title">De la primera llamada a un sistema que se usa.</h2>
+        </div>
+        <ol class="steps" id="steps"></ol>
+      </div>
+    </section>
+
+    <!-- IA -->
+    <section class="section" id="ia" aria-labelledby="ia-title">
+      <div class="container">
+        <div class="ai-wrap">
+          <div>
+            <span class="badge badge-ai" id="ia-badge">IA</span>
+            <h2 class="section-title" id="ia-title" style="margin-top:16px">La IA analiza. Tú decides.</h2>
+            <p class="lead">Usamos inteligencia artificial para leer lo que a una persona le tomaría días: cientos de comentarios abiertos, motivos de baja y mensajes del buzón.</p>
+            <ul class="ai-list" id="ai-list"></ul>
+          </div>
+          <div class="card card-key">
+            <div id="ia-chart"></div>
+            <div class="ai-summary">
+              <span class="meta">Resumen sugerido · revisar antes de compartir</span>
+              La compensación y el liderazgo explican más de la mitad de las bajas. En Operaciones, varios comentarios mencionan cambios de turno sin aviso.
+            </div>
+            <p class="demo-note" style="margin:14px 0 0">Datos ficticios</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Paquetes -->
+    <section class="section" id="paquetes" aria-labelledby="pkg-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Paquetes</p>
+          <h2 class="section-title" id="pkg-title">Precios claros, desde el inicio.</h2>
+          <p class="lead">Pago por proyecto. Ajustamos el alcance al tamaño de tu empresa.</p>
+        </div>
+        <div class="grid-3 pkgs" id="pkgs"></div>
+        <p class="fineprint">Precios de referencia en pesos mexicanos. La cotización final depende del número de sistemas y de personas.</p>
+      </div>
+    </section>
+
+    <!-- Portal -->
+    <section class="section" id="portal" aria-labelledby="portal-title">
+      <div class="container portal-grid">
+        <div>
+          <p class="eyebrow">Portal de clientes</p>
+          <h2 class="section-title" id="portal-title">Todo lo que contrataste, en un solo acceso.</h2>
+          <p class="lead">Cada cliente entra con su correo y ve sus servicios, tableros, documentos y solicitudes de soporte. Solo lo suyo, nada más.</p>
+          <div class="form-actions" style="margin-top:32px">
+            <a class="btn btn-ghost" href="portal.html">Entrar al portal</a>
+          </div>
+        </div>
+        <div class="card mini" aria-label="Vista de ejemplo del portal">
+          <div class="mini-top">
+            <span class="chart-title">Mis servicios · ejemplo</span>
+            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <ul class="mini-rows" id="portal-preview"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nosotros -->
+    <section class="section" id="nosotros" aria-labelledby="about-title">
+      <div class="container about">
+        <div class="about-text">
+          <p class="eyebrow">Nosotros</p>
+          <h2 class="section-title" id="about-title">Hecho por gente que ha trabajado en RH.</h2>
+          <p>Conocemos el área desde dentro: los formatos que nadie encuentra, la encuesta que se quedó en una hoja de cálculo y el reporte que se arma a mano cada fin de mes.</p>
+          <p>Por eso no vendemos software complicado. Diseñamos sistemas sencillos que tu equipo sí usa, con indicadores que te ayudan a tomar mejores decisiones sobre tu gente.</p>
+        </div>
+        <div>
+          <p class="eyebrow">Experiencia en</p>
+          <ul class="areas">
+            <li>Reclutamiento y selección</li>
+            <li>Capacitación y desarrollo</li>
+            <li>Evaluación del desempeño</li>
+            <li>Comunicación interna</li>
+            <li>Clima y cultura laboral</li>
+            <li>Integración de personal</li>
+            <li>Indicadores de RH</li>
+            <li>Políticas y procesos</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="section" id="contacto" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Contacto</p>
+          <h2 class="section-title" id="contact-title">Platiquemos de tu área de RH.</h2>
+          <p class="lead">Escríbenos por WhatsApp o pide una cotización formal. Respondemos en menos de un día hábil.</p>
+        </div>
+        <div class="contact">
+          <div class="card">
+            <h3>Agenda por WhatsApp</h3>
+            <p class="muted">Arma tu mensaje y ábrelo en WhatsApp.</p>
+            <form id="wa-form" class="stack" novalidate>
+              <div class="field">
+                <label for="wa-company">Empresa <span class="req">(requerido)</span></label>
+                <input id="wa-company" name="company" type="text" autocomplete="organization" maxlength="160" required>
+                <p class="field-error" id="wa-company-err" hidden></p>
+              </div>
+              <div class="field">
+                <label for="wa-package">Paquete</label>
+                <select id="wa-package" name="package"></select>
+              </div>
+              <div class="field">
+                <label for="wa-day">Día propuesto para platicar</label>
+                <input id="wa-day" name="day" type="date">
+              </div>
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Abrir WhatsApp</button>
+            </form>
+            <div class="contact-alt">
+              <span class="muted">O directamente:</span>
+              <a id="wa-direct" href="https://wa.me/525575319051" target="_blank" rel="noopener">WhatsApp 55 7531 9051</a>
+              <a href="mailto:humaclear@gmail.com">humaclear@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="card card-key">
+            <h3>Pide tu cotización</h3>
+            <p class="muted">Te enviamos una propuesta con alcance, tiempos y precio.</p>
+            <div id="quote-done" hidden></div>
+            <form id="quote-form" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="q-name">Nombre <span class="req">(requerido)</span></label>
+                  <input id="q-name" name="name" type="text" autocomplete="name" maxlength="120" required>
+                  <p class="field-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="q-company">Empresa <span class="req">(requerido)</span></label>
+                  <input id="q-company" name="company" type="text" autocomplete="organization" maxlength="160" required>
+                  <p class="field-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="q-email">Correo <span class="req">(requerido)</span></label>
+                  <input id="q-email" name="email" type="email" autocomplete="email" maxlength="160" required>
+                  <p class="field-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="q-phone">Teléfono</label>
+                  <input id="q-phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
+                  <p class="field-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="q-size">Tamaño de la empresa</label>
+                  <select id="q-size" name="size"></select>
+                </div>
+                <div class="field">
+                  <label for="q-package">Paquete</label>
+                  <select id="q-package" name="packageId"></select>
+                </div>
+                <fieldset class="field full">
+                  <legend>¿Qué te interesa?</legend>
+                  <div class="checks" id="q-interests"></div>
+                </fieldset>
+                <div class="field full">
+                  <label for="q-message">Mensaje</label>
+                  <textarea id="q-message" name="message" maxlength="2000" placeholder="Cuéntanos cómo trabaja hoy tu área de RH."></textarea>
+                </div>
+                <div class="hp" aria-hidden="true">
+                  <label for="q-website">Sitio web</label>
+                  <input id="q-website" name="website" type="text" tabindex="-1" autocomplete="off">
+                </div>
+                <div class="field full">
+                  <label class="check" for="q-consent">
+                    <input id="q-consent" name="consent" type="checkbox">
+                    <span>Leí y acepto el <a href="privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a>.</span>
+                  </label>
+                  <p class="field-error" hidden></p>
+                </div>
+                <div class="full" id="quote-msg" aria-live="polite"></div>
+                <div class="full">
+                  <button class="btn btn-primary btn-lg" type="submit" id="quote-submit">Enviar solicitud</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <span class="brand"><span class="brand-mark" aria-hidden="true">hc</span><span class="brand-name">Huma<b>Clear</b></span></span>
+        <p class="small muted" style="margin:8px 0 0">© <span id="year">2026</span> HumaClear. Del caos a la claridad.</p>
+      </div>
+      <div class="footer-links">
+        <a href="privacidad.html">Aviso de privacidad</a>
+        <a href="portal.html">Portal de clientes</a>
+        <a href="mailto:humaclear@gmail.com">humaclear@gmail.com</a>
+      </div>
+      <p class="demo-note" style="margin:0;flex-basis:100%">Las demos de este sitio usan datos ficticios.</p>
+    </div>
+  </footer>
+</body>
+</html>

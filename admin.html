@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel de administración · HumaClear</title>
+  <meta name="description" content="Panel de administración de HumaClear.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#040506">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- Watchdog: si algo impide que el sitio arranque, muestra un aviso claro en vez de una página a medias. -->
+  <script>
+  (function () {
+    var errs = [];
+    function rec(e) {
+      var t = e && e.target, msg = "";
+      if (t && t !== window && (t.tagName === "SCRIPT" || t.tagName === "LINK")) msg = "No se pudo cargar " + (t.src || t.href);
+      else if (e && e.reason) msg = String(e.reason && e.reason.message || e.reason);
+      else if (e && e.message) msg = e.message + (e.filename ? " (" + e.filename.split("/").pop() + ":" + e.lineno + ")" : "");
+      if (msg) errs.push(msg);
+    }
+    window.addEventListener("error", rec, true);
+    window.addEventListener("unhandledrejection", rec);
+    setTimeout(function () {
+      if (document.documentElement.getAttribute("data-ready")) return;
+      var d = document.createElement("div");
+      d.setAttribute("role", "alert");
+      d.style.cssText = "position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:720px;margin:0 auto;padding:16px 18px;background:#1a0e0e;color:#ffd9d9;border:1px solid #5a2f2f;border-radius:12px;font:14px/1.5 system-ui,sans-serif";
+      var b = document.createElement("strong"); b.textContent = "El sitio no terminó de cargar. ";
+      var p = document.createElement("div"); p.textContent = errs[0] || "Algún archivo no se cargó.";
+      p.style.cssText = "font-family:ui-monospace,monospace;font-size:12px;margin:6px 0;word-break:break-word";
+      var h = document.createElement("div");
+      h.textContent = "Revisa que js/config.js tenga comillas y comas correctas y que index.html, css/ y js/ estén en la raíz del repositorio.";
+      d.appendChild(b); d.appendChild(p); d.appendChild(h);
+      document.body.appendChild(d);
+    }, 3500);
+  })();
+  </script>
+
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js" crossorigin>
+  <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js" crossorigin>
+  <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-lite.js" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"></noscript>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/app.css">
+  <script type="module" src="js/admin.js"></script>
+</head>
+<body class="app">
+  <div id="app" aria-live="polite">
+    <div class="screen"><div class="screen-card"><div class="spinner" aria-hidden="true"></div><p class="screen-text" style="margin:0">Cargando…</p></div></div>
+  </div>
+  <noscript><p style="padding:24px;color:#fff">Necesitas activar JavaScript para usar esta página.</p></noscript>
+</body>
+</html>
